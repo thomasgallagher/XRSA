@@ -67,11 +67,18 @@
     }
 
     void *plain = malloc(plainLen);
+    if (plain == NULL) {
+        exit(0);
+    }
+
     [content getBytes:plain
                length:plainLen];
 
     size_t cipherLen = [self.keyLengthBits integerValue];
     void *cipher = malloc(cipherLen);
+    if (cipher == NULL) {
+        exit(0);
+    }
 
     OSStatus returnCode = SecKeyEncrypt(publicKey, kSecPaddingPKCS1, plain,
                                         plainLen, cipher, &cipherLen);
